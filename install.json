@@ -1,0 +1,37 @@
+{
+  "resources": {
+    "body": [
+      {
+        "type": "style",
+        "src": "./source/app.css"
+      },
+      {
+        "type": "script",
+        "src": "./source/app.js"
+      }
+    ]
+  },
+  "preview": {
+    "handlers": [
+      {
+        "options": ["_default"],
+        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+      }
+    ]
+  },
+  "options": {
+    "properties": {
+      "location": {
+        "title": "Widget Location",
+        "description": "Where should the weather widget appear?",
+        "order": 0,
+        "type": "object",
+        "format": "element",
+        "default": {
+          "selector": "body",
+          "method": "prepend"
+        }
+      }
+    }
+  }
+}
