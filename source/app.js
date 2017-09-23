@@ -13,22 +13,42 @@
 
     // Set the app attribute to your app's dash-delimited alias.
     var apiKey = ''
-    var city = 'detroit'
-    var state = 'MI'
-    var url = `http://api.wunderground.com/api/${apiKey}/conditions/q/${state}/${city}.json`
-    
+    var ipUrl = "https://ipapi.co/json/"
     element.setAttribute('app', 'example')
-    if(nagivator.geolocation) {
-        element.innerHTML = navigator.geolocation.getCurrentPosition().coords.latitude
-    } 
     
-    /*var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, false);
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", ipUrl, false);
     xhr.send();
-    var response = JSON.parse(xhr.responseText)
-   
-    element.innerHTML = 
-    "<div style='text-align:center;'><h4>" + response.current_observation.display_location.full + "</h4> \n <h2>" + response.current_observation.weather + "</h2> \n <h2>" + response.current_observation.temperature_string + "</h2></div>"*/
+    var res = JSON.parse(xhr.responseText);
+    
+    //console.log("one")
+    var state = res.region_code
+    var city = res.city
+    
+    var forecastUrl = `http://api.wunderground.com/api/${apiKey}/conditions/q/${state}/${city}.json`
+    
+    var xhr2 = new XMLHttpRequest();
+    xhr2.open("GET", forecastUrl, false)
+    xhr2.send()
+    var res2 = JSON.parse(xhr2.responseText)
+    //console.log("two")
+    
+    var alertsUrl = `http://api.wunderground.com/api/${apiKey}/alerts/q/${state}/${city}.json`
+    // Oroville, CA has an active alert 
+    //var alertsUrl = `http://api.wunderground.com/api/${apiKey}/alerts/q/CA/Oroville.json`
+        
+    xhr2.open("GET", alertsUrl, false)
+    xhr2.send()
+    var res3 = JSON.parse(xhr2.responseText)
+    //console.log("three")
+    
+    if(res3.alerts.length > 0) {
+        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2><div style='font-weight:bold;color:red;'>" + res3.alerts[0].description + "</div></div>"
+    } else {
+        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2></div>"
+    }
+    
+    
   }
   
   // INSTALL_SCOPE is an object that is used to handle option changes without refreshing the page.
