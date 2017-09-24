@@ -12,7 +12,7 @@
     element = INSTALL.createElement(options.location, element)
 
     // Set the app attribute to your app's dash-delimited alias.
-    var apiKey = ''
+    var apiKey = 'c5732581d8bf5cf3'
     var ipUrl = "https://ipapi.co/json/"
     element.setAttribute('app', 'example')
     
@@ -24,6 +24,9 @@
     //console.log("one")
     var state = res.region_code
     var city = res.city
+    // Oroville, CA has an active alert 
+    // var state = "CA"
+    // var city = "Oroville"
     
     var forecastUrl = `http://api.wunderground.com/api/${apiKey}/conditions/q/${state}/${city}.json`
     
@@ -34,18 +37,16 @@
     //console.log("two")
     
     var alertsUrl = `http://api.wunderground.com/api/${apiKey}/alerts/q/${state}/${city}.json`
-    // Oroville, CA has an active alert 
-    //var alertsUrl = `http://api.wunderground.com/api/${apiKey}/alerts/q/CA/Oroville.json`
-        
+    
     xhr2.open("GET", alertsUrl, false)
     xhr2.send()
     var res3 = JSON.parse(xhr2.responseText)
     //console.log("three")
     
     if(res3.alerts.length > 0) {
-        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2><div style='font-weight:bold;color:red;'>" + res3.alerts[0].description + "</div></div>"
+        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2> \n <h5><a href=" + res2.current_observation.forecast_url + ">See more</a><h5> \n <div style='font-weight:bold;color:red;'><h2>" + res3.alerts[0].description + "</h2></div></div>"
     } else {
-        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2></div>"
+        element.innerHTML = "<div style='text-align:center;'><h4>" + res2.current_observation.display_location.full + "</h4> \n <h2>" + res2.current_observation.weather + "</h2> \n <h2>" + res2.current_observation.temperature_string + "</h2> \n <h5><a href=" + res2.current_observation.forecast_url + ">See more</a><h5></div>"
     }
     
     
