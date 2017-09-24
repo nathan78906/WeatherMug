@@ -1,5 +1,13 @@
 # WeatherMug
 
+<a href="https://www.cloudflare.com/apps/UX1LSxAe0WeI/install?source=button">
+  <img
+    src="https://install.cloudflareapps.com/install-button.png"
+    alt="Install WeatherMug"
+    border="0"
+    width="150">
+</a>
+
 ## Screenshots
 
 Current Conditions
