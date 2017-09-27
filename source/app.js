@@ -12,7 +12,7 @@
     element = INSTALL.createElement(options.location, element)
 
     // Set the app attribute to your app's dash-delimited alias.
-    var apiKey = 'c5732581d8bf5cf3'
+    var apiKey = 'INSERT_WUNDERGROUND_API_KEY'
     var ipUrl = "https://ipapi.co/json/"
     element.setAttribute('app', 'example')
     
